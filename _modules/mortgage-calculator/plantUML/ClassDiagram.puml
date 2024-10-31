@@ -1,0 +1,490 @@
+@startuml
+!theme vibrant
+skinparam classAttributeIconSize 0
+left to right direction
+
+
+class MortgageCalculator {
+	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
+}
+
+
+class PlantUmlCreator {
+	{method}  {static} -createClassDiagram ( paramString1 : String ) : java.util.Optional
+	{method}  {static} -createSequenceDiagram ( paramClass1 : Class , paramString2 : String ) : java.util.Optional
+	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
+	{method}  {static} -saveToFile ( paramOptional1 : java.util.Optional , paramString2 : String ) : void
+	{method}  {static} -writeToFile ( paramString1 : String , paramString2 : String ) : void
+}
+
+
+class model.FormattingValues {
+}
+
+
+class model.OverpaymentData {
+}
+
+
+enum model.OverpaymentType {
+	{field} +REDUCE_DURATION
+	{field} +REDUCE_RATE
+}
+
+
+enum model.RateType {
+	{field} +CONSTANT
+	{field} +DECREASING
+}
+
+
+class model.Reference {
+}
+
+
+class model.Summary {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +getInterestSumDisplay () : java.math.BigDecimal
+	{method} +getOverpaymentProvisionSumDisplay () : java.math.BigDecimal
+	{method} +getTotalLossDisplay () : java.math.BigDecimal
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+class model.exception.MortgageException {
+}
+
+
+class model.rate.MortgageResidual {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +getResidualAmountDisplay () : java.math.BigDecimal
+	{method} +getResidualDurationDisplay () : java.math.BigDecimal
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+class model.rate.Rate {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+class model.rate.RateAmounts {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +getCapitalAmountDisplay () : java.math.BigDecimal
+	{method} +getInterestAmountDisplay () : java.math.BigDecimal
+	{method} +getRateAmountDisplay () : java.math.BigDecimal
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+class model.rate.TimePoint {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+class service.MortgageCalculationService {
+	{method} +calculate ( paramInputData1 : service.input.InputData ) : void
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+interface service.MortgageCalculationServiceI {
+	{method}  {abstract} +calculate ( paramInputData1 : service.input.InputData ) : void
+}
+
+
+class service.SummaryCalculationService {
+	{method} +calculate ( paramList1 : java.util.List , paramInputData2 : service.input.InputData ) : model.Summary
+	{method}  {static} -calculateOverpaymentProvisionSum ( paramInputData1 : service.input.InputData ) : java.math.BigDecimal
+	{method}  {static} -calculateSum ( paramList1 : java.util.List , paramFunction2 : java.util.function.Function ) : java.math.BigDecimal
+	{method}  {static} -calculateTotalLoss ( paramBigDecimal1 : java.math.BigDecimal , paramBigDecimal2 : java.math.BigDecimal ) : java.math.BigDecimal
+}
+
+
+interface service.SummaryCalculationServiceI {
+	{method}  {abstract} +calculate ( paramList1 : java.util.List , paramInputData2 : service.input.InputData ) : model.Summary
+}
+
+
+class service.input.InputData {
+	{method}  {static} +builder () : service.input.InputData$InputDataBuilder
+	{method}  {static} +defaultInputData () : service.input.InputData$InputDataBuilder
+	{method}  {static} +empty () : service.input.InputData
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +getInterestDisplay () : java.math.BigDecimal
+	{method} +getOverpaymentAmount ( paramBigDecimal1 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} +getOverpaymentType ( paramBigDecimal1 : java.math.BigDecimal ) : model.OverpaymentType
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+class service.input.InputData$InputDataBuilder {
+	{method} +build () : service.input.InputData
+	{method} +interestPercent ( paramBigDecimal1 : java.math.BigDecimal ) : service.input.InputData$InputDataBuilder
+	{method} +overpaymentMap ( paramMap1 : java.util.Map ) : service.input.InputData$InputDataBuilder
+	{method} +overpaymentProvisionMonths ( paramBigDecimal1 : java.math.BigDecimal ) : service.input.InputData$InputDataBuilder
+	{method} +overpaymentProvisionPercent ( paramBigDecimal1 : java.math.BigDecimal ) : service.input.InputData$InputDataBuilder
+	{method} +rateType ( paramRateType1 : model.RateType ) : service.input.InputData$InputDataBuilder
+	{method} +reference ( paramReference1 : model.Reference ) : service.input.InputData$InputDataBuilder
+	{method} +repaymentStartDate ( paramLocalDate1 : java.time.LocalDate ) : service.input.InputData$InputDataBuilder
+	{method} +startingAmount ( paramBigDecimal1 : java.math.BigDecimal ) : service.input.InputData$InputDataBuilder
+	{method} +startingDuration ( paramBigDecimal1 : java.math.BigDecimal ) : service.input.InputData$InputDataBuilder
+	{method} +toString () : String
+}
+
+
+class service.input.InputData$Scales {
+}
+
+
+class service.input.InputFromBuilder {
+	{method} +load () : service.input.InputData
+}
+
+
+class service.input.InputFromFile {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +load () : service.input.InputData
+	{method}  {static} -mapOverpaymentMap ( paramString1 : String ) : java.util.Map
+	{method}  {static} +read () : service.input.InputData
+	{method} +toString () : String
+}
+
+
+class service.input.InputServiceFactory {
+	{method}  {static} +get ( paramInputServiceFactory$InputForm1 : service.input.InputServiceFactory$InputForm ) : service.input.InputServiceI
+}
+
+
+enum service.input.InputServiceFactory$InputForm {
+	{field} +BUILDER
+	{field} +FILE
+}
+
+
+interface service.input.InputServiceI {
+	{method}  {abstract} +load () : service.input.InputData
+}
+
+
+class service.output.OutputServiceFactory {
+	{method}  {static} +get ( paramOutputServiceFactory$OutputTo1 : service.output.OutputServiceFactory$OutputTo ) : service.output.OutputServiceI
+}
+
+
+enum service.output.OutputServiceFactory$OutputTo {
+	{field} +CONSOLE
+	{field} +FILE
+	{field} +LOG
+}
+
+
+interface service.output.OutputServiceI {
+	{method}  {abstract} +save ( paramString1 : String ) : void
+}
+
+
+class service.output.OutputToConsole {
+	{method} +save ( paramString1 : String ) : void
+}
+
+
+class service.output.OutputToFile {
+	{method} +save ( paramString1 : String ) : void
+}
+
+
+class service.output.OutputToLog {
+	{method} +save ( paramString1 : String ) : void
+}
+
+
+class service.printingService.ColumnFormattingService {
+	{method}  {static} +builder () : service.printingService.ColumnFormattingService$ColumnFormattingServiceBuilder
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +getColumnFormat ( paramFormat1 : service.printingService.Format ) : service.printingService.Format
+	{method} +getColumnFormatInLine ( paramFormat;1 : [Lservice.printingService.Format; ) : service.printingService.Format
+	{method} +getColumnFormatInTurns ( paramFormat;1 : [Lservice.printingService.Format; ) : service.printingService.Format
+	{method} +getEntryFormat ( paramFormat1 : service.printingService.Format , paramFormat2 : service.printingService.Format ) : service.printingService.Format
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+class service.printingService.ColumnFormattingService$ColumnFormattingServiceBuilder {
+	{method} +build () : service.printingService.ColumnFormattingService
+	{method} +toString () : String
+}
+
+
+interface service.printingService.ColumnFormattingServiceI {
+	{method}  {abstract} +getColumnFormat ( paramFormat1 : service.printingService.Format ) : service.printingService.Format
+	{method}  {abstract} +getColumnFormatInLine ( paramFormat;1 : [Lservice.printingService.Format; ) : service.printingService.Format
+	{method}  {abstract} +getColumnFormatInTurns ( paramFormat;1 : [Lservice.printingService.Format; ) : service.printingService.Format
+	{method}  {abstract} +getEntryFormat ( paramFormat1 : service.printingService.Format , paramFormat2 : service.printingService.Format ) : service.printingService.Format
+}
+
+
+class service.printingService.Format {
+	{method} +getAsArray () : [Ljava.lang.String;
+	{method} +getAsList () : java.util.List
+	{method} +getValue ( paramint1 : int ) : String
+	{method} +size () : int
+}
+
+
+interface service.printingService.FormattingFunction {
+	{method}  {abstract} +apply ( paramObject1 : Object ) : Object
+}
+
+
+class service.printingService.FormattingUtils {
+	{method} +descriptorCreator ( paramFunction1 : java.util.function.Function , paramInteger2 : Integer ) : java.util.Collection
+	{method}  {static} +functionsToObjects ( paramList1 : java.util.List , paramObject2 : Object ) : java.util.List
+	{method}  {static} +validateFormatLength ( paramFormat;1 : [Lservice.printingService.Format; ) : int
+}
+
+
+class service.printingService.PrintingService {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} -getOverpaymentRow ( paramOverpaymentData1 : model.OverpaymentData , paramFormat2 : service.printingService.Format ) : StringBuilder
+	{method} -getRateRow ( paramFormat1 : service.printingService.Format , paramRate2 : model.rate.Rate ) : StringBuilder
+	{method} +hashCode () : int
+	{method} +printData ( paramInputData1 : service.input.InputData , paramList2 : java.util.List , paramSummary3 : model.Summary ) : void
+	{method} +printIntro ( paramInputData1 : service.input.InputData ) : void
+	{method} +printOverpaymentMap ( paramInputData1 : service.input.InputData , paramFormat2 : service.printingService.Format ) : void
+	{method} +printRates ( paramList1 : java.util.List , paramInputData2 : service.input.InputData , paramFormat3 : service.printingService.Format , paramFormat4 : service.printingService.Format ) : void
+	{method} +printSummary ( paramSummary1 : model.Summary ) : void
+	{method} -saveMessage ( paramString1 : String ) : void
+	{method} -saveMessage ( paramStringBuilder1 : StringBuilder ) : void
+	{method} +toString () : String
+}
+
+
+interface service.printingService.PrintingServiceI {
+	{method}  {static} -createSeparator ( paramchar1 : char , paramint2 : int ) : String
+	{method}  {abstract} +printData ( paramInputData1 : service.input.InputData , paramList2 : java.util.List , paramSummary3 : model.Summary ) : void
+	{method}  {abstract} +printIntro ( paramInputData1 : service.input.InputData ) : void
+	{method}  {abstract} +printOverpaymentMap ( paramInputData1 : service.input.InputData , paramFormat2 : service.printingService.Format ) : void
+	{method}  {abstract} +printRates ( paramList1 : java.util.List , paramInputData2 : service.input.InputData , paramFormat3 : service.printingService.Format , paramFormat4 : service.printingService.Format ) : void
+	{method}  {abstract} +printSummary ( paramSummary1 : model.Summary ) : void
+}
+
+
+class service.printingService.RowFormattingService {
+	{method} +getKeyValueFormattedRow ( paramFormat1 : service.printingService.Format , paramList2 : java.util.List , paramObject3 : Object , paramList4 : java.util.List ) : StringBuilder
+	{method} +getMultiCollectionFormattedRow ( paramFormat1 : service.printingService.Format , paramint2 : int , paramList;3 : [Ljava.util.List; ) : StringBuilder
+	{method} +getValueFormattedRow ( paramFormat1 : service.printingService.Format , paramObject2 : Object , paramList3 : java.util.List ) : StringBuilder
+}
+
+
+interface service.printingService.RowFormattingServiceI {
+	{method}  {abstract} +getKeyValueFormattedRow ( paramFormat1 : service.printingService.Format , paramList2 : java.util.List , paramObject3 : Object , paramList4 : java.util.List ) : StringBuilder
+	{method}  {abstract} +getMultiCollectionFormattedRow ( paramFormat1 : service.printingService.Format , paramint2 : int , paramList;3 : [Ljava.util.List; ) : StringBuilder
+	{method}  {abstract} +getValueFormattedRow ( paramFormat1 : service.printingService.Format , paramObject2 : Object , paramList3 : java.util.List ) : StringBuilder
+}
+
+
+class service.printingService.SizeFormattingService {
+	{method}  {static} +builder () : service.printingService.SizeFormattingService$SizeFormattingServiceBuilder
+	{method} -calculateMaxColumnSize ( paramCollection1 : java.util.Collection , paramCollection2 : java.util.Collection ) : [Ljava.lang.Integer;
+	{method} -createStringsForFormatting ( paramInteger;1 : [Ljava.lang.Integer; ) : [Ljava.lang.String;
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +getFormats ( paramCollection1 : java.util.Collection ) : service.printingService.Format
+	{method} +getFormats ( paramObject1 : Object , paramCollection2 : java.util.Collection ) : service.printingService.Format
+	{method} +getFormats ( paramCollection1 : java.util.Collection , paramCollection2 : java.util.Collection ) : service.printingService.Format
+	{method} +hashCode () : int
+	{method} +toString () : String
+	{method} +valuesToDescribersFormat ( paramCollection1 : java.util.Collection ) : service.printingService.Format
+}
+
+
+class service.printingService.SizeFormattingService$SizeFormattingServiceBuilder {
+	{method} +build () : service.printingService.SizeFormattingService
+	{method} +toString () : String
+}
+
+
+interface service.printingService.SizeFormattingServiceI {
+	{method}  {abstract} +getFormats ( paramCollection1 : java.util.Collection ) : service.printingService.Format
+	{method}  {abstract} +getFormats ( paramObject1 : Object , paramCollection2 : java.util.Collection ) : service.printingService.Format
+	{method}  {abstract} +getFormats ( paramCollection1 : java.util.Collection , paramCollection2 : java.util.Collection ) : service.printingService.Format
+	{method}  {abstract} +valuesToDescribersFormat ( paramCollection1 : java.util.Collection ) : service.printingService.Format
+}
+
+
+class service.printingService.TableFormattingService {
+	{method} +KeyValueFormatter ( paramCollection1 : java.util.Collection , paramCollection2 : java.util.Collection , paramCollection3 : java.util.Collection ) : service.printingService.Format
+	{method} +collectionFormatter ( paramCollection1 : java.util.Collection , paramList2 : java.util.List ) : service.printingService.Format
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +multiCollectionFormatter ( paramCollection;1 : [Ljava.util.Collection; ) : service.printingService.Format
+	{method} +toString () : String
+}
+
+
+interface service.printingService.TableFormattingServiceI {
+	{method}  {abstract} +KeyValueFormatter ( paramCollection1 : java.util.Collection , paramCollection2 : java.util.Collection , paramCollection3 : java.util.Collection ) : service.printingService.Format
+	{method}  {abstract} +collectionFormatter ( paramCollection1 : java.util.Collection , paramList2 : java.util.List ) : service.printingService.Format
+	{method}  {abstract} +getColumnFormattingService () : service.printingService.ColumnFormattingServiceI
+	{method}  {abstract} +getFormatter () : service.printingService.SizeFormattingServiceI
+	{method}  {abstract} +getRowFormattingService () : service.printingService.RowFormattingServiceI
+	{method}  {abstract} +multiCollectionFormatter ( paramCollection;1 : [Ljava.util.Collection; ) : service.printingService.Format
+}
+
+
+class service.rateCalculation.AmountsCalculationService {
+	{method} +calculate ( paramInputData1 : service.input.InputData , paramMortgageResidual2 : model.rate.MortgageResidual ) : model.rate.RateAmounts
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+interface service.rateCalculation.AmountsCalculationServiceI {
+	{method}  {abstract} +calculate ( paramInputData1 : service.input.InputData , paramMortgageResidual2 : model.rate.MortgageResidual ) : model.rate.RateAmounts
+	{method}  {static} +calculateInterestAmount ( paramBigDecimal1 : java.math.BigDecimal , paramBigDecimal2 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method}  {static} +calculateMortgageConstant ( paramBigDecimal1 : java.math.BigDecimal ) : java.math.BigDecimal
+}
+
+
+class service.rateCalculation.ConstantAmountsCalculationService {
+	{method} +calculate ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal ) : model.rate.RateAmounts
+	{method} -calculateCapitalAmount ( paramBigDecimal1 : java.math.BigDecimal , paramBigDecimal2 : java.math.BigDecimal , paramBigDecimal3 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} -calculateRateAmount ( paramBigDecimal1 : java.math.BigDecimal , paramBigDecimal2 : java.math.BigDecimal , paramBigDecimal3 : java.math.BigDecimal , paramBigDecimal4 : java.math.BigDecimal , paramBigDecimal5 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} -compareWithResidual ( paramBigDecimal1 : java.math.BigDecimal , paramBigDecimal2 : java.math.BigDecimal , paramBigDecimal3 : java.math.BigDecimal ) : java.math.BigDecimal
+}
+
+
+interface service.rateCalculation.ConstantAmountsCalculationServiceI {
+	{method}  {abstract} +calculate ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal ) : model.rate.RateAmounts
+}
+
+
+class service.rateCalculation.DecreasingAmountsCalculationService {
+	{method} +calculate ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal ) : model.rate.RateAmounts
+	{method} -calculateCapitalAmount ( paramBigDecimal1 : java.math.BigDecimal , paramBigDecimal2 : java.math.BigDecimal , paramBigDecimal3 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} -calculateRateAmount ( paramBigDecimal1 : java.math.BigDecimal , paramBigDecimal2 : java.math.BigDecimal ) : java.math.BigDecimal
+}
+
+
+interface service.rateCalculation.DecreasingAmountsCalculationServiceI {
+	{method}  {abstract} +calculate ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal ) : model.rate.RateAmounts
+}
+
+
+class service.rateCalculation.RateCalculationService {
+	{method} +calculate ( paramInputData1 : service.input.InputData ) : java.util.List
+	{method} -calculateRate ( paramBigDecimal1 : java.math.BigDecimal , paramInputData2 : service.input.InputData , paramRate3 : model.rate.Rate ) : model.rate.Rate
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} -getZeroRate ( paramInputData1 : service.input.InputData ) : model.rate.Rate
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+interface service.rateCalculation.RateCalculationServiceI {
+	{method}  {abstract} +calculate ( paramInputData1 : service.input.InputData ) : java.util.List
+}
+
+
+class service.rateCalculation.ResidualCalculationService {
+	{method} +calculate ( paramInputData1 : service.input.InputData , paramTimePoint2 : model.rate.TimePoint , paramRateAmounts3 : model.rate.RateAmounts , paramMortgageResidual4 : model.rate.MortgageResidual ) : model.rate.MortgageResidual
+	{method} -calculateResidualAmount ( paramRateAmounts1 : model.rate.RateAmounts , paramBigDecimal2 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} -calculateResidualOverpaymentAmount ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal , paramBigDecimal3 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} -getOverpaymentMortgageResidual ( paramInputData1 : service.input.InputData , paramTimePoint2 : model.rate.TimePoint , paramRateAmounts3 : model.rate.RateAmounts , paramBigDecimal4 : java.math.BigDecimal , paramBigDecimal5 : java.math.BigDecimal ) : model.rate.MortgageResidual
+	{method} +hashCode () : int
+	{method} +reduceDurationByOne ( paramBigDecimal1 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} -reduceDurationOfConstant ( paramInputData1 : service.input.InputData , paramRateAmounts2 : model.rate.RateAmounts , paramBigDecimal3 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} -reduceDurationOfDecreasing ( paramRateAmounts1 : model.rate.RateAmounts , paramBigDecimal2 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} +toString () : String
+	{method} -updateOverpaymentCut ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal , paramBigDecimal3 : java.math.BigDecimal ) : void
+	{method} -updateReferenceAmount ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal ) : void
+	{method} -updateReferenceDuration ( paramInputData1 : service.input.InputData , paramBigDecimal2 : java.math.BigDecimal ) : void
+}
+
+
+interface service.rateCalculation.ResidualCalculationServiceI {
+	{method}  {abstract} +calculate ( paramInputData1 : service.input.InputData , paramTimePoint2 : model.rate.TimePoint , paramRateAmounts3 : model.rate.RateAmounts , paramMortgageResidual4 : model.rate.MortgageResidual ) : model.rate.MortgageResidual
+}
+
+
+class service.rateCalculation.TimePointService {
+	{method} +calculate ( paramBigDecimal1 : java.math.BigDecimal , paramInputData2 : service.input.InputData ) : model.rate.TimePoint
+	{method} -calculateDate ( paramBigDecimal1 : java.math.BigDecimal , paramInputData2 : service.input.InputData ) : java.time.LocalDate
+	{method} -calculateMonth ( paramBigDecimal1 : java.math.BigDecimal ) : java.math.BigDecimal
+	{method} -calculateOverpayment ( paramBigDecimal1 : java.math.BigDecimal , paramInputData2 : service.input.InputData ) : Boolean
+	{method} -calculateYear ( paramBigDecimal1 : java.math.BigDecimal ) : java.math.BigDecimal
+}
+
+
+interface service.rateCalculation.TimePointServiceI {
+	{method}  {abstract} +calculate ( paramBigDecimal1 : java.math.BigDecimal , paramInputData2 : service.input.InputData ) : model.rate.TimePoint
+}
+
+
+
+
+MortgageCalculator -->  service.MortgageCalculationServiceI : instance
+model.FormattingValues "1" o-- "0..*"  service.printingService.FormattingFunction : introDescribers
+model.FormattingValues "1" o-- "0..*"  service.printingService.FormattingFunction : overpaymentDescribers
+model.FormattingValues "1" o-- "0..*"  service.printingService.FormattingFunction : rateDescribers
+model.FormattingValues "1" o-- "0..*"  service.printingService.FormattingFunction : summaryDescribers
+model.FormattingValues *--  service.printingService.FormattingFunction : DEFAULT_DESCRIBER
+model.OverpaymentData *--  model.OverpaymentType : overpaymentType
+model.rate.Rate *--  model.rate.MortgageResidual : mortgageResidual
+model.rate.Rate *--  model.rate.RateAmounts : rateAmounts
+model.rate.Rate *--  model.rate.TimePoint : timePoint
+service.MortgageCalculationService *--  service.SummaryCalculationServiceI : summaryCalculationServiceI
+service.MortgageCalculationService *--  service.printingService.PrintingServiceI : printingServiceI
+service.MortgageCalculationService *--  service.rateCalculation.RateCalculationServiceI : rateCalculationServiceI
+service.MortgageCalculationService ..|>  service.MortgageCalculationServiceI
+service.SummaryCalculationService ..|>  service.SummaryCalculationServiceI
+service.input.InputData "1" o-- "0..*"  model.OverpaymentData : overpaymentMap
+service.input.InputData *--  model.RateType : rateType
+service.input.InputData *--  model.Reference : reference
+service.input.InputData$InputDataBuilder "1" o-- "0..*"  model.OverpaymentData : overpaymentMap
+service.input.InputData$InputDataBuilder -->  model.RateType : rateType
+service.input.InputData$InputDataBuilder -->  model.Reference : reference
+service.input.InputFromBuilder ..|>  service.input.InputServiceI
+service.input.InputFromFile ..|>  service.input.InputServiceI
+service.output.OutputToConsole ..|>  service.output.OutputServiceI
+service.output.OutputToFile ..|>  service.output.OutputServiceI
+service.output.OutputToLog ..|>  service.output.OutputServiceI
+service.printingService.ColumnFormattingService ..|>  service.printingService.ColumnFormattingServiceI
+service.printingService.PrintingService *--  service.output.OutputServiceI : outputServiceI
+service.printingService.PrintingService *--  service.printingService.TableFormattingServiceI : tableFormatterI
+service.printingService.PrintingService ..|>  service.printingService.PrintingServiceI
+service.printingService.RowFormattingService ..|>  service.printingService.RowFormattingServiceI
+service.printingService.SizeFormattingService ..|>  service.printingService.SizeFormattingServiceI
+service.printingService.TableFormattingService *--  service.printingService.ColumnFormattingServiceI : columnFormattingService
+service.printingService.TableFormattingService *--  service.printingService.RowFormattingServiceI : rowFormattingService
+service.printingService.TableFormattingService *--  service.printingService.SizeFormattingServiceI : formatter
+service.printingService.TableFormattingService ..|>  service.printingService.TableFormattingServiceI
+service.rateCalculation.AmountsCalculationService *--  service.rateCalculation.ConstantAmountsCalculationServiceI : constantAmountsCalculationServiceI
+service.rateCalculation.AmountsCalculationService *--  service.rateCalculation.DecreasingAmountsCalculationServiceI : decreasingAmountsCalculationServiceI
+service.rateCalculation.AmountsCalculationService ..|>  service.rateCalculation.AmountsCalculationServiceI
+service.rateCalculation.ConstantAmountsCalculationService ..|>  service.rateCalculation.ConstantAmountsCalculationServiceI
+service.rateCalculation.DecreasingAmountsCalculationService ..|>  service.rateCalculation.DecreasingAmountsCalculationServiceI
+service.rateCalculation.RateCalculationService *--  service.rateCalculation.AmountsCalculationServiceI : amountsCalculationServiceI
+service.rateCalculation.RateCalculationService *--  service.rateCalculation.ResidualCalculationServiceI : residualCalculationServiceI
+service.rateCalculation.RateCalculationService *--  service.rateCalculation.TimePointServiceI : timePointServiceI
+service.rateCalculation.RateCalculationService ..|>  service.rateCalculation.RateCalculationServiceI
+service.rateCalculation.ResidualCalculationService ..|>  service.rateCalculation.ResidualCalculationServiceI
+service.rateCalculation.TimePointService ..|>  service.rateCalculation.TimePointServiceI
+
+hide methods
+
+@enduml

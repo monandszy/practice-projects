@@ -1,0 +1,13 @@
+startingAmount=
+startingDuration=
+interestPercent=
+repaymentStartDate=
+rateType=
+overpaymentProvisionPercent=
+overpaymentProvisionMonths=
+overpaymentMap=
+doPrint=true
+doSerialize=false
+doCalculateSummary=true
+calculationCycle=1
+doAddYearSeparator=true
