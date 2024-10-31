@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Cat Details</title>
+    <meta http-equiv="Content-Type" content="text/xml" ; charset="UTF-8">
+    <!-- CSS only -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h2>Cat</h2>
+    <table class="table table-stripped table-hover">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Happy Day</th>
+        </tr>
+        <tr>
+            <td th:text="${foundCat.catId}"></td>
+            <td th:text="${foundCat.name}"></td>
+            <td th:text="${foundCat.salary}"></td>
+            <td th:text="${foundCat.happyDay}"></td>
+        </tr>
+
+    </table>
+    <a class="btn btn-light" th:href="@{/cats}">Show all cats</a>
+</div>
+</body>
+
+</html>

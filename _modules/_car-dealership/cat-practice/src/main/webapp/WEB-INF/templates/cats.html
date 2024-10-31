@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+
+<head>
+    <title>All Cats</title>
+    <meta http-equiv="Content-Type" content="text/xml" charset="UTF-8">
+    <!-- CSS only -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <div class="page-header" id="banner">
+        <h2>Add Cat</h2>
+        <form action="#" th:action="@{/cats/add}" method="POST">
+            <div class="form-group">
+                Name: <input type="text" th:name="name"/>
+                Salary: <input type="text" th:name="salary"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create Cat" name="button"/>
+            </div>
+        </form>
+        <h2>Update Cat</h2>
+        <form action="#" th:action="@{/cats/update}" th:method="PUT" th:object="${}">
+            <div class="form-group">
+                Id: <input type="text" th:field="*{employeeId}"/>
+                Name: <input type="text" th:field="*{name}"/>
+                Surname: <input type="text" th:field="*{surname}"/>
+                Salary: <input type="text" th:field="*{salary}"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update employee" name="button"/>
+            </div>
+        </form>
+        <h2>Current Cat</h2>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Happy Day</th>
+            </tr>
+            <tr th:each="cat : ${catList}">
+                <td th:text="${cat.catId}"></td>
+                <td th:text="${cat.name}"></td>
+                <td th:text="${cat.salary}"></td>
+                <td th:text="${cat.happyDay}"></td>
+                <td>
+                    <form action="#" th:action="@{cats/show/{catId}(catId=${cat.catId})}" method="GET">
+                        <button type="submit" class="btn btn-info">Details</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="#" th:action="@{cats/delete/{catId}(catId=${cat.catId})}" th:method="DELETE">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>
