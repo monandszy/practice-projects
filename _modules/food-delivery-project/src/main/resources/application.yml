@@ -1,0 +1,43 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /code
+spring:
+  flyway:
+    enabled: true
+    locations: classpath:/db/
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/java_model
+    username: postgres
+    password: postgres
+    hikari:
+      idle-timeout: 10000
+      connection-timeout: 20000
+      minimum-idle: 10
+      maximum-pool-size: 20
+      schema: food_delivery
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: on
+  security:
+    enabled: true
+  servlet.multipart.max-file-size: 5MB
+  servlet.multipart.max-request-size: 5MB
+logging:
+  level:
+    org:
+      springframework:
+        security: ERROR
+api:
+  abstract:
+    url: https://ipgeolocation.abstractapi.com/

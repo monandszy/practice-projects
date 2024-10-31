@@ -1,0 +1,85 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Your Restaurants</title>
+</head>
+
+<body>
+<div>
+  <h2>Add Restaurant</h2>
+  <p>Address is automatically assigned based on your ip address</p>
+  <form action="#"
+        th:action="@{/myRestaurants/add}"
+        th:method="POST"
+        th:object="${restaurantDTO}">
+    <div>
+      <label>
+        <input type="text" placeholder="deliveryRange"
+               th:field="*{deliveryRange}" name="name"/>
+      </label>
+    </div>
+    <div>
+      <button type="submit">Add Restaurant</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <h2>Your Restaurants</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Range</th>
+      <th>SellerId</th>
+      <th>Address</th>
+      <th>Show</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="myRestaurant : ${restaurantsPage}">
+      <td th:text="${myRestaurant.id}"></td>
+      <td th:text="${myRestaurant.deliveryRange}"></td>
+      <td th:text="${myRestaurant.sellerOutput}"></td>
+      <td th:text="${myRestaurant.addressOutput}"></td>
+      <td>
+        <form action="#" th:action="@{/myRestaurant/get/{id}
+        (id=${myRestaurant.id})}" method="GET">
+          <button type="submit">+</button>
+        </form>
+        <form action="#" th:action="@{/myRestaurants/delete/{id}
+        (id=${myRestaurant.id})}" th:method="DELETE">
+          <button type="submit">-</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Page</h2>
+  <form action="#" th:action="@{/myRestaurants/get}" method="GET">
+    <div>
+      <label>
+        <input type="text" th:name = "pageNumber"
+               placeholder="PageNumber" th:placeholder="${pageNumber}"/>
+      </label>
+    </div>
+    <div>
+      <button type="submit">Set Page</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <a th:href="@{/manage}">Go Back</a>
+</div>
+</body>
+</html>

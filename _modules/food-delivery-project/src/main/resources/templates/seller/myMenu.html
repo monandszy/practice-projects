@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CRUD your Menu</title>
+</head>
+
+<body>
+<div>
+  <h2>Add MenuPosition</h2>
+  <form action="#"
+        th:action="@{/myMenu/add
+        (menuId=${menuId})}"
+        th:method="POST"
+        th:object="${menuPositionDTO}"
+        enctype="multipart/form-data">
+    <div>
+      <label>
+        <input type="text" placeholder="Price" th:field="*{price}"/>
+      </label>
+      <label>
+        <input type="text" placeholder="Tea Name" th:field="*{name}"/>
+      </label>
+      <label>
+        <input type="file" placeholder="Only tea images allowed!"
+               name="image" accept="image/*" class="form-control-file">
+      </label>
+    </div>
+    <div>
+      <button type="submit">Add Menu Position</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <h2>Your Menu</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Price</th>
+      <th>Tea Name</th>
+      <th>Images</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="menuPosition : ${menuPage}">
+      <td th:text="${menuPosition.id}"></td>
+      <td th:text="${menuPosition.price}"></td>
+      <td th:text="${menuPosition.name}"></td>
+      <td>
+        <ul th:each="image : ${menuPosition.images}">
+          <li>
+            <img th:src="@{'/images/get/'+${image}}" alt="noImage" style="height:200px;">
+          </li>
+        </ul>
+      </td>
+      <td>
+        <form action="#" th:action="@{/myMenu/delete/{id}
+        (id=${menuPosition.id})}" th:object="${menuId}" th:method="DELETE">
+          <button type="submit">-</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Page</h2>
+  <form action="#" th:action="@{/myMenu/get/{id}(id=${menuId})}" method="GET">
+    <div>
+      <label>
+        <input type="text" th:name="pageNumber"
+               placeholder="PageNumber" th:placeholder="${pageNumber}"/>
+      </label>
+    </div>
+    <div>
+      <button type="submit">Set Page</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <a th:href="@{/myRestaurant/get/{id}(id=${restaurantId})}">Go Back</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+curl -i -H "Accept: application/json" -X GET http://localhost:8087/code/api/order/get/admin
+curl -i -H "Accept: application/json" -X GET http://localhost:8087/code/api/order/details/get/1
+curl -i -H "Accept: application/json" -X POST http://localhost:8087/code/api/order/delete/1
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8087/code/api/restaurant/open -d "{\"restaurant\": {\"deliveryRange\": 10000},\"menu\" {\"menuType\": \"MENU_TYPE1\"},\"menuPositions\" [{\"price\": 1000,\"name\": \"name\"}, {\"price\": 1000,\"name\": \"otherName\"}],\"address\" {\"id\": 1,\"city\": \"test\",\"postalCode\": \"test\",\"ipAddress\": \"78.30.83.227\",\"latitude\": 1,\"longitude\": 1}}"
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8087/code/api/order/add -d "{\"addressDTO\": {\"id\": 1,\"city\": \"test\",\"postalCode\": \"test\",\"ipAddress\": \"78.30.83.227\",\"latitude\": 1,\"longitude\": 1},\"selected\": [1, 2, 3],\"restaurantId\": 1}"
+
+"{
+   "addressDTO": {
+   "id": 1,
+   "city": "test",
+   "postalCode": "test",
+   "ipAddress": "78.30.83.227",
+   "latitude": 1,
+   "longitude": 1
+   },
+   "selected": [1, 2, 3],
+   "restaurantId": 1
+}"
+
+"{
+ "restaurant": {
+    "deliveryRange": 10000
+ }
+  "menu" {
+     "menuType": "MENU_TYPE1"
+  },
+  "menuPositions" [{
+     "price": 1000,
+     "name": "name"
+  }, {
+     "price": 1000,
+     "name": "otherName"
+  }],
+  "address" {
+     "id": 1,
+     "city": "test",
+     "postalCode": "test",
+     "ipAddress": "78.30.83.227",
+     "latitude": 1,
+     "longitude": 1
+  }
+}"
+
+"{\"addressDTO\": {\"id\": 1,\"city\": \"test\",\"postalCode\": \"test\",\"ipAddress\": \"78.30.83.227\",\"latitude\": 1,\"longitude\": 1},\"selected\": [1, 2, 3],\"restaurantId\": 1}"
+
+
+"{\"restaurant\": {\"deliveryRange\": 10000},\"menu\": {\"menuType\": \"MENU_TYPE1\"},\"menuPositions\": [{\"price\": 1000,\"name\": \"name\"}, {\"price\": 1000,\"name\": \"otherName\"}],\"address\": {\"id\": 1,\"city\": \"test\",\"postalCode\": \"test\",\"ipAddress\": \"78.30.83.227\",\"latitude\": 1,\"longitude\": 1}}"
+
+
+"{\"restaurant\": {\"deliveryRange\": 10000},
+\"menu\": {\"menuType\": \"MENU_TYPE1\"},
+\"menuPositions\": [{\"price\": 1000,\"name\": \"name\"}, {\"price\": 1000,\"name\": \"otherName\"}],
+\"address\": {\"id\": 1,\"city\": \"test\",\"postalCode\": \"test\",\"ipAddress\": \"78.30.83.227\",\"latitude\": 1,\"longitude\": 1}}"
+
+
+               -H "Cookie: JSESSIONID=47C709B348B446678E1F16FD366394FC"
+
+curl -i -X POST http://localhost:8087/code/login --data-raw "username=admin&password=admin"
+
+// ensure that values exist first!
+
+
+
+
+
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8087/code/api/restaurant/open -d "{\"restaurant\": {\"deliveryRange\": 10000},\"menu\":{\"menuType\": \"MENU_TYPE1\"}}" // address is null
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8087/code/api/restaurant/open -d "{\"restaurant\": {\"deliveryRange\": 10000} \"menu\" {\"menuType\": \"MENU_TYPE1\"}}" // no ,
+curl -i -H "Content-Type: application/json" -X POST http://localhost:8087/code/api/restaurant/open -d "{\"restaurant\": {\"deliveryRange\": 10000},\"menu\" {\"menuType\": \"MENU_TYPE1\"}}" // Parse exception

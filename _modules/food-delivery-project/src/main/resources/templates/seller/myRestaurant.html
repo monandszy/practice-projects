@@ -1,0 +1,94 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CRUD your Restaurant's Menus</title>
+</head>
+
+<body>
+<div>
+  <h2>Update Restaurant</h2>
+  <form action="#" th:action="@{/myRestaurant/update/{id}(id=${restaurantId})}" th:method="PATCH">
+    <input type="text" placeholder="deliveryRange" th:name="deliveryRange"/>
+    <button type="submit">-</button>
+  </form>
+</div>
+<div>
+  <h2>Add Menu</h2>
+  <form action="#"
+        th:action="@{/myRestaurant/add
+          (restaurantId=${restaurantId})}"
+        th:method="POST"
+        th:object="${menuDTO}">
+    <div>
+      <label>
+        <select th:field="*{menuType}">
+          <option value="MENU_TYPE1">MENU_TYPE1</option>
+          <option value="MENU_TYPE2">MENU_TYPE2</option>
+          <option value="MENU_TYPE3">MENU_TYPE3</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <button type="submit">Add Menu</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <h2>Your Restaurant's Menus</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>MenuType</th>
+      <th>Show</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="myMenu : ${restaurantPage}">
+      <td th:text="${myMenu.id}"></td>
+      <td th:text="${myMenu.menuType}"></td>
+      <td>
+        <form action="#" th:action="@{/myMenu/get/{id}
+        (id=${myMenu.id})}" method="GET">
+          <button type="submit">+</button>
+        </form>
+      </td>
+      <td>
+        <form action="#" th:action="@{/myRestaurant/delete/{id}
+        (id=${myMenu.id})}" th:method="delete">
+          <button type="submit">-</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Page</h2>
+  <form action="#" th:action="@{/myRestaurant/get/{id}
+  (id=${restaurantId})}" method="GET">
+    <div>
+      <label>
+        <input type="text" th:name="pageNumber"
+               placeholder="PageNumber" th:placeholder="${pageNumber}"/>
+      </label>
+    </div>
+    <div>
+      <button type="submit">Set Page</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <a th:href="@{/myRestaurants/get}">Go Back</a>
+</div>
+</body>
+</html>

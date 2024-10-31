@@ -1,0 +1,85 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+</head>
+<body>
+</body>
+<div>
+  <h2>Accounts</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>UserName</th>
+      <th>Active</th>
+      <th>Roles</th>
+      <th>Delete</th>
+      <th>Update</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account : ${accountPage}">
+      <td th:text="${account.id}"></td>
+      <td th:text="${account.userName}"></td>
+      <td th:text="${account.active}"></td>
+      <td th:text="${account.roles}"></td>
+      <td>
+        <form action="#" th:action="@{/home/delete/{id}
+        (id=${account.userName})}" th:method="DELETE">
+          <button type="submit">-</button>
+        </form>
+      </td>
+      <td>
+        <form action="#" th:action="@{/home/set/{id}
+        (id=${account.userName})}" th:method="DELETE">
+          <select th:name = "role" placeholder="role">
+            <option value="SELLER">SELLER</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="CLIENT">CLIENT</option>
+          </select>
+          <button type="submit">+</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div>
+  <h2>Page</h2>
+  <form action="#" th:action="@{/home}" method="GET">
+    <div>
+      <label>
+        <input type="text" th:name = "pageNumber"
+               placeholder="PageNumber" th:placeholder="${pageNumber}"/>
+      </label>
+    </div>
+    <div>
+      <button type="submit">Set Page</button>
+    </div>
+  </form>
+</div>
+
+<h2>Links</h2>
+<div>
+  <a th:href="@{/register}">Register</a>
+  <a th:href="@{/login}">Login</a>
+  <a th:href="@{/logout}">Logout</a>
+</div>
+<div>
+  <a th:href="@{/discover}">Discover</a>
+  <a th:href="@{/restaurant/get/1}">Restaurant get 1</a>
+  <a th:href="@{/menu/get/1}">Menu get 1</a>
+</div>
+<div>
+  <a th:href="@{/manage}">Manage</a>
+  <a th:href="@{/myRestaurants/get}">MyRestaurants get</a>
+  <a th:href="@{/myRestaurant/get/1}">MyRestaurant get 1</a>
+  <a th:href="@{/myMenu/get/1}">MyMenu get 1</a>
+</div>
+</html>

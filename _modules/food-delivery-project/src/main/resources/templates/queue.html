@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Queue</title>
+</head>
+<body>
+<h1>Queue</h1>
+<p>Welcome to the queue!</p>
+<p>Your account has been successfully registered</p>
+<p>Please wait for an administrator to assign you a role</p>
+<div>
+  <a th:href="@{/discover}">Try to reach Discover Page</a>
+  <a th:href="@{/manage}">Try to reach Seller Home Page</a>
+  <a th:href="@{/home}">Try to reach Admin Page</a>
+  <a th:href="@{/logout}">Log out</a>
+</div>
+</body>
+</html>

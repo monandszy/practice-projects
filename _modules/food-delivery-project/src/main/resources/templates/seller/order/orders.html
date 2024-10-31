@@ -1,0 +1,85 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Menu</title>
+</head>
+<body>
+<div>
+  <h2>Orders To Fulfill</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Address</th>
+      <th>RestaurantId</th>
+      <th>Status</th>
+      <th>TimeOfOrder</th>
+      <th>Show</th>
+      <th>Complete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${incompleteOrders}">
+      <td th:text="${order.id}"></td>
+      <td th:text="${order.addressOutput}"></td>
+      <td th:text="${order.restaurantId}"></td>
+      <td th:text="${order.status}"></td>
+      <td th:text="${order.timeOfOrder}"></td>
+      <td>
+        <form action="#" th:action="@{/order/getForSeller/{id}
+        (id=${order.id})}" method="GET">
+          <button type="submit">+</button>
+        </form>
+      </td>
+      <td>
+        <form action="#" th:action="@{/order/complete/{id}
+        (id=${order.id})}" th:method="PATCH">
+          <button type="submit">o</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Completed/Cancelled Orders</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Address</th>
+      <th>RestaurantId</th>
+      <th>Status</th>
+      <th>TimeOfOrder</th>
+      <th>Show</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${completeOrders}">
+      <td th:text="${order.id}"></td>
+      <td th:text="${order.addressOutput}"></td>
+      <td th:text="${order.restaurantId}"></td>
+      <td th:text="${order.status}"></td>
+      <td th:text="${order.timeOfOrder}"></td>
+      <td>
+        <form action="#" th:action="@{/order/getForSeller/{id}
+        (id=${order.id})}" method="GET">
+          <button type="submit">+</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <a th:href="@{/manage}">Go Back</a>
+</div>
+</body>
+</html>

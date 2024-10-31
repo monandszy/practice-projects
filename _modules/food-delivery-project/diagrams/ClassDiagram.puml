@@ -1,0 +1,338 @@
+@startuml
+!theme vibrant
+skinparam classAttributeIconSize 0
+left to right direction
+
+
+interface code.component.manageAccount.AccountDAO {
+	{method}  {abstract} +deleteByUserName ( paramString1 : String ) : void
+	{method}  {abstract} +findByUserName ( paramString1 : String ) : java.util.Optional
+	{method}  {abstract} +getAccountPage ( paramInteger1 : Integer ) : java.util.List
+}
+
+
+class code.component.manageAccount.AccountService {
+	{method} +deleteAccount ( paramString1 : String ) : void
+	{method} +getAccountPage ( paramInteger1 : Integer ) : java.util.List
+	{method} +getAuthenticatedUserName () : String
+	{method} +getCurrentIp () : String
+}
+
+
+class code.component.manageAccount.LoginService {
+	{method} -getAccountAuthority ( paramSet1 : java.util.Set ) : java.util.List
+	{method} +loadUserByUsername ( paramString1 : String ) : org.springframework.security.core.userdetails.UserDetails
+}
+
+
+interface code.component.manageAccount.data.AccountJpaRepo {
+	{method}  {abstract} +findByUserName ( paramString1 : String ) : java.util.Optional
+}
+
+
+class code.component.manageAccount.data.AccountRepo {
+	{method} +deleteByUserName ( paramString1 : String ) : void
+	{method} +findByUserName ( paramString1 : String ) : java.util.Optional
+	{method} +getAccountPage ( paramInteger1 : Integer ) : java.util.List
+}
+
+
+interface code.component.manageAccount.data.RoleJpaRepo {
+}
+
+class code.component.manageAccount.web.HomeController {
+	{method} +deleteAccount ( paramString1 : String ) : String
+}
+
+
+class code.component.manageAccount.web.RegisterController {
+	{method} +getRegisterView ( paramModel1 : org.springframework.ui.Model ) : String
+}
+
+
+interface code.component.manageOrder.OrderDAO {
+	{method}  {abstract} +addOrderPositions ( paramList1 : java.util.List , paramList2 : java.util.List , paramInteger3 : Integer ) : void
+	{method}  {abstract} +getCompleteOrdersBySellerId ( paramString1 : String ) : java.util.List
+	{method}  {abstract} +getIncompleteOrdersBySellerId ( paramString1 : String ) : java.util.List
+	{method}  {abstract} +getOrderPositions ( paramInteger1 : Integer ) : java.util.List
+	{method}  {abstract} +getOrdersByClientId ( paramString1 : String ) : java.util.List
+}
+
+
+class code.component.manageOrder.OrderService {
+	{method} +cancelOrder ( paramInteger1 : Integer ) : void
+	{method} +complete ( paramInteger1 : Integer ) : void
+	{method} +getCompleteOrdersBySellerId ( paramString1 : String ) : java.util.List
+	{method} +getIncompleteOrdersBySellerId ( paramString1 : String ) : java.util.List
+	{method} +getOrderPositions ( paramInteger1 : Integer ) : java.util.List
+	{method} +getOrdersByClientId ( paramString1 : String ) : java.util.List
+}
+
+
+interface code.component.manageOrder.data.OrderJpaRepo {
+	{method}  {abstract} +findByClientUserName ( paramString1 : String ) : java.util.List
+	{method}  {abstract} +findCompleteBySellerUserName ( paramString1 : String ) : java.util.List
+	{method}  {abstract} +findIncompleteBySellerUserName ( paramString1 : String ) : java.util.List
+}
+
+
+interface code.component.manageOrder.data.OrderPositionJpaRepo {
+	{method}  {abstract} +findByOrderId ( paramInteger1 : Integer ) : java.util.List
+}
+
+
+class code.component.manageOrder.data.OrderRepo {
+	{method} +addOrderPositions ( paramList1 : java.util.List , paramList2 : java.util.List , paramInteger3 : Integer ) : void
+	{method} +getCompleteOrdersBySellerId ( paramString1 : String ) : java.util.List
+	{method} +getIncompleteOrdersBySellerId ( paramString1 : String ) : java.util.List
+	{method} +getOrderPositions ( paramInteger1 : Integer ) : java.util.List
+	{method} +getOrdersByClientId ( paramString1 : String ) : java.util.List
+}
+
+class code.component.manageOrder.web.MyOrderController {
+	{method} +deleteOrder ( paramInteger1 : Integer ) : String
+	{method} +getOrderPositionsForClient ( paramInteger1 : Integer , paramModel2 : org.springframework.ui.Model ) : String
+	{method} +getOrdersByClientId ( paramModel1 : org.springframework.ui.Model ) : String
+	{method} +postOrder ( paramInteger;1 : [Ljava.lang.Integer; , paramHttpSession2 : jakarta.servlet.http.HttpSession ) : String
+}
+
+
+class code.component.manageOrder.web.OrderController {
+	{method} +completeOrder ( paramInteger1 : Integer ) : String
+	{method} +getIncompleteOrdersBySellerId ( paramModel1 : org.springframework.ui.Model ) : String
+	{method} +getOrderPositionsForSeller ( paramInteger1 : Integer , paramModel2 : org.springframework.ui.Model ) : String
+}
+
+
+interface code.component.manageRestaurant.dao.CrudDAO {
+	{method}  {abstract} +deleteById ( paramInteger1 : Integer ) : void
+}
+
+
+interface code.component.manageRestaurant.dao.MenuDAO {
+	{method}  {abstract} +getPageByRestaurantId ( paramInteger1 : Integer , paramInteger2 : Integer ) : java.util.List
+}
+
+
+interface code.component.manageRestaurant.dao.MenuPositionDAO {
+	{method}  {abstract} +getMenuPositions ( paramInteger1 : Integer ) : java.util.List
+	{method}  {abstract} +getPageByMenuId ( paramInteger1 : Integer , paramInteger2 : Integer ) : java.util.List
+}
+
+
+interface code.component.manageRestaurant.dao.RestaurantDAO {
+	{method}  {abstract} +getAllWithAddress () : java.util.List
+	{method}  {abstract} +getPageBySeller ( paramString1 : String , paramInteger2 : Integer ) : java.util.List
+	{method}  {abstract} +updateRange ( paramInteger1 : Integer , paramDouble2 : Double ) : void
+}
+
+
+class code.component.manageRestaurant.data.MenuPositionRepo {
+	{method} +deleteById ( paramInteger1 : Integer ) : void
+	{method} +getMenuPositions ( paramInteger1 : Integer ) : java.util.List
+	{method} +getPageByMenuId ( paramInteger1 : Integer , paramInteger2 : Integer ) : java.util.List
+}
+
+
+class code.component.manageRestaurant.data.MenuRepo {
+	{method} +deleteById ( paramInteger1 : Integer ) : void
+	{method} +getPageByRestaurantId ( paramInteger1 : Integer , paramInteger2 : Integer ) : java.util.List
+}
+
+
+class code.component.manageRestaurant.data.RestaurantRepo {
+	{method} +deleteById ( paramInteger1 : Integer ) : void
+	{method} +getAllWithAddress () : java.util.List
+	{method} +getPageBySeller ( paramString1 : String , paramInteger2 : Integer ) : java.util.List
+	{method} +updateRange ( paramInteger1 : Integer , paramDouble2 : Double ) : void
+}
+
+
+interface code.component.manageRestaurant.data.jpa.MenuJpaRepo {
+}
+
+
+interface code.component.manageRestaurant.data.jpa.MenuPositionJpaRepo {
+}
+
+
+interface code.component.manageRestaurant.data.jpa.RestaurantJpaRepo {
+	{method}  {abstract} +findAll () : java.util.List
+	{method}  {abstract} +findById ( paramInteger1 : Integer ) : java.util.Optional
+}
+
+interface code.component.manageRestaurant.manageDelivery.AddressDAO {
+	{method}  {abstract} +getByIp ( paramString1 : String ) : java.util.Optional
+}
+
+
+interface code.component.manageRestaurant.manageDelivery.AddressJpaRepo {
+	{method}  {abstract} +findByIpAddress ( paramString1 : String ) : java.util.Optional
+}
+
+
+class code.component.manageRestaurant.manageDelivery.AddressRepo {
+	{method} +getByIp ( paramString1 : String ) : java.util.Optional
+}
+
+
+class code.component.manageRestaurant.manageDelivery.AddressService {
+}
+
+
+class code.component.manageRestaurant.manageDelivery.DistanceCalculationService {
+	{method} +calculateDistance ( paramDouble1 : Double , paramDouble2 : Double , paramDouble3 : Double , paramDouble4 : Double ) : Double
+	{method} ~haversine ( paramdouble1 : double ) : double
+}
+
+class code.component.manageRestaurant.manageImages.ImageController {
+	{method} +getImage ( paramInteger1 : Integer ) : org.springframework.http.ResponseEntity
+}
+
+
+interface code.component.manageRestaurant.manageImages.ImageDAO {
+	{method}  {abstract} +add ( paramImageEntity1 : code.component.manageRestaurant.manageImages.ImageEntity , paramInteger2 : Integer ) : void
+	{method}  {abstract} +getImageById ( paramint1 : int ) : code.component.manageRestaurant.manageImages.ImageEntity
+}
+
+interface code.component.manageRestaurant.manageImages.ImageJpaRepo {
+}
+
+
+class code.component.manageRestaurant.manageImages.ImageRepo {
+	{method} +add ( paramImageEntity1 : code.component.manageRestaurant.manageImages.ImageEntity , paramInteger2 : Integer ) : void
+	{method} +getImageById ( paramint1 : int ) : code.component.manageRestaurant.manageImages.ImageEntity
+}
+
+
+class code.component.manageRestaurant.service.MenuPositionService {
+	{method} +deleteById ( paramInteger1 : Integer ) : void
+	{method} +getAllMenuPositions ( paramInteger1 : Integer ) : java.util.List
+	{method} +getPageByMenu ( paramInteger1 : Integer , paramInteger2 : Integer ) : java.util.List
+}
+
+
+class code.component.manageRestaurant.service.MenuService {
+	{method} +deleteById ( paramInteger1 : Integer ) : void
+	{method} +getPageByRestaurant ( paramInteger1 : Integer , paramInteger2 : Integer ) : java.util.List
+}
+
+
+class code.component.manageRestaurant.service.RestaurantService {
+	{method} +deleteById ( paramInteger1 : Integer ) : void
+	{method} +getPageBySellerId ( paramString1 : String , paramInteger2 : Integer ) : java.util.List
+	{method} +update ( paramInteger1 : Integer , paramDouble2 : Double ) : void
+}
+
+
+class code.component.manageRestaurant.web.clientOutput.DiscoverController {
+	{method} +getRestaurants ( paramInteger1 : Integer , paramModel2 : org.springframework.ui.Model , paramHttpSession3 : jakarta.servlet.http.HttpSession ) : String
+}
+
+
+class code.component.manageRestaurant.web.clientOutput.MenuController {
+	{method} +getMenuPositions ( paramInteger1 : Integer , paramHttpSession2 : jakarta.servlet.http.HttpSession , paramModel3 : org.springframework.ui.Model ) : String
+}
+
+
+class code.component.manageRestaurant.web.clientOutput.RestaurantController {
+	{method} +getMenusView ( paramInteger1 : Integer , paramInteger2 : Integer , paramModel3 : org.springframework.ui.Model , paramHttpSession4 : jakarta.servlet.http.HttpSession ) : String
+}
+
+
+class code.component.manageRestaurant.web.sellerInput.SellerHomeController {
+	{method} +redirect ( paramModel1 : org.springframework.ui.Model ) : String
+}
+
+
+class code.component.manageRestaurant.web.sellerInput.SellerMenuController {
+	{method} +deleteMenuPosition ( paramInteger1 : Integer , paramInteger2 : Integer ) : String
+	{method} +getMenuViewById ( paramString1 : String , paramInteger2 : Integer , paramHttpSession3 : jakarta.servlet.http.HttpSession , paramModel4 : org.springframework.ui.Model ) : String
+}
+
+
+class code.component.manageRestaurant.web.sellerInput.SellerRestaurantController {
+	{method} +deleteMenu ( paramInteger1 : Integer , paramHttpSession2 : jakarta.servlet.http.HttpSession ) : String
+	{method} +getRestaurantViewById ( paramInteger1 : Integer , paramInteger2 : Integer , paramHttpSession3 : jakarta.servlet.http.HttpSession , paramModel4 : org.springframework.ui.Model ) : String
+	{method} +updateRestaurant ( paramInteger1 : Integer , paramDouble2 : Double ) : String
+}
+
+
+class code.component.manageRestaurant.web.sellerInput.SellerRestaurantsController {
+	{method} +deleteRestaurant ( paramInteger1 : Integer ) : String
+	{method} +getRestaurantsViewBySellerId ( paramInteger1 : Integer , paramModel2 : org.springframework.ui.Model ) : String
+}
+
+
+
+code.component.manageAccount --[hidden]> code
+code.component.manageAccount --[hidden]d> code.component.manageOrder
+code.component.manageAccount --[hidden]d> code.component.manageRestaurant
+code.component.manageRestaurant.manageDelivery --[hidden]> code.component.manageRestaurant
+code.component.manageRestaurant.dao --[hidden]> code.component.manageRestaurant.data
+code.component.manageRestaurant.dao --[hidden]> code.component.manageRestaurant
+code.component.manageRestaurant.web --[hidden]> code.component.manageRestaurant.service
+code.component.manageRestaurant.web.clientOutput --[hidden]> code.component.manageRestaurant.web.sellerInput
+code.component.manageAccount.AccountService *--  code.component.manageAccount.AccountDAO
+code.component.manageAccount.LoginService -->  code.component.manageAccount.AccountDAO
+code.component.manageAccount.data.AccountRepo -->  code.component.manageAccount.data.AccountJpaRepo
+code.component.manageAccount.data.AccountRepo -->  code.component.manageAccount.data.RoleJpaRepo
+code.component.manageAccount.data.AccountRepo ..u|>  code.component.manageAccount.AccountDAO
+code.component.manageAccount.web.HomeController *--  code.component.manageAccount.AccountService
+code.component.manageAccount.web.RegisterController -->  code.component.manageAccount.LoginService
+code.component.manageOrder.OrderService -->  code.component.manageOrder.OrderDAO
+code.component.manageOrder.OrderService -->  code.component.manageRestaurant.dao.RestaurantDAO
+code.component.manageOrder.OrderService -->  code.component.manageRestaurant.manageDelivery.AddressDAO
+code.component.manageOrder.data.OrderRepo -->  code.component.manageAccount.data.AccountJpaRepo
+code.component.manageOrder.data.OrderRepo -->  code.component.manageOrder.data.OrderJpaRepo
+code.component.manageOrder.data.OrderRepo -->  code.component.manageOrder.data.OrderPositionJpaRepo
+code.component.manageOrder.data.OrderRepo -->  code.component.manageRestaurant.data.jpa.MenuPositionJpaRepo
+code.component.manageOrder.data.OrderRepo -->  code.component.manageRestaurant.data.jpa.RestaurantJpaRepo
+code.component.manageOrder.data.OrderRepo -->  code.component.manageRestaurant.manageDelivery.AddressJpaRepo
+code.component.manageOrder.data.OrderRepo ..u|>  code.component.manageOrder.OrderDAO
+code.component.manageOrder.web.MyOrderController -->  code.component.manageAccount.AccountService
+code.component.manageOrder.web.MyOrderController -->  code.component.manageOrder.OrderService
+code.component.manageOrder.web.OrderController -->  code.component.manageAccount.AccountService
+code.component.manageOrder.web.OrderController -->  code.component.manageOrder.OrderService
+code.component.manageRestaurant.dao.MenuDAO ..u|>  code.component.manageRestaurant.dao.CrudDAO
+code.component.manageRestaurant.dao.MenuPositionDAO ..u|>  code.component.manageRestaurant.dao.CrudDAO
+code.component.manageRestaurant.dao.RestaurantDAO ..u|>  code.component.manageRestaurant.dao.CrudDAO
+code.component.manageRestaurant.data.MenuPositionRepo -->  code.component.manageRestaurant.data.jpa.MenuJpaRepo
+code.component.manageRestaurant.data.MenuPositionRepo -->  code.component.manageRestaurant.data.jpa.MenuPositionJpaRepo
+code.component.manageRestaurant.data.MenuPositionRepo ..u|>  code.component.manageRestaurant.dao.MenuPositionDAO
+code.component.manageRestaurant.data.MenuRepo -->  code.component.manageRestaurant.data.jpa.MenuJpaRepo
+code.component.manageRestaurant.data.MenuRepo -->  code.component.manageRestaurant.data.jpa.RestaurantJpaRepo
+code.component.manageRestaurant.data.MenuRepo ..u|>  code.component.manageRestaurant.dao.MenuDAO
+code.component.manageRestaurant.data.RestaurantRepo -->  code.component.manageAccount.data.AccountJpaRepo
+code.component.manageRestaurant.data.RestaurantRepo -->  code.component.manageRestaurant.data.jpa.RestaurantJpaRepo
+code.component.manageRestaurant.data.RestaurantRepo -->  code.component.manageRestaurant.manageDelivery.AddressJpaRepo
+code.component.manageRestaurant.data.RestaurantRepo ..u|>  code.component.manageRestaurant.dao.RestaurantDAO
+code.component.manageRestaurant.manageDelivery.AddressRepo -->  code.component.manageRestaurant.manageDelivery.AddressJpaRepo
+code.component.manageRestaurant.manageDelivery.AddressRepo ..u|>  code.component.manageRestaurant.manageDelivery.AddressDAO
+code.component.manageRestaurant.manageDelivery.AddressService -->  code.component.manageRestaurant.dao.RestaurantDAO
+code.component.manageRestaurant.manageDelivery.AddressService -->  code.component.manageRestaurant.manageDelivery.AddressDAO
+code.component.manageRestaurant.manageDelivery.AddressService -->  code.component.manageRestaurant.manageDelivery.DistanceCalculationService
+code.component.manageRestaurant.manageImages.ImageController -->  code.component.manageRestaurant.manageImages.ImageDAO
+code.component.manageRestaurant.manageImages.ImageRepo -->  code.component.manageRestaurant.data.jpa.MenuPositionJpaRepo
+code.component.manageRestaurant.manageImages.ImageRepo -->  code.component.manageRestaurant.manageImages.ImageJpaRepo
+code.component.manageRestaurant.manageImages.ImageRepo ..u|>  code.component.manageRestaurant.manageImages.ImageDAO
+code.component.manageRestaurant.service.MenuPositionService -->  code.component.manageRestaurant.dao.MenuPositionDAO
+code.component.manageRestaurant.service.MenuPositionService -->  code.component.manageRestaurant.manageImages.ImageDAO
+code.component.manageRestaurant.service.MenuService -->  code.component.manageRestaurant.dao.MenuDAO
+code.component.manageRestaurant.service.RestaurantService -->  code.component.manageRestaurant.dao.RestaurantDAO
+code.component.manageRestaurant.service.RestaurantService -->  code.component.manageRestaurant.manageDelivery.AddressDAO
+code.component.manageRestaurant.web.clientOutput.DiscoverController -->  code.component.manageAccount.AccountService
+code.component.manageRestaurant.web.clientOutput.DiscoverController -->  code.component.manageRestaurant.manageDelivery.AddressService
+code.component.manageRestaurant.web.clientOutput.MenuController -->  code.component.manageRestaurant.service.MenuPositionService
+code.component.manageRestaurant.web.clientOutput.RestaurantController -->  code.component.manageRestaurant.service.MenuService
+code.component.manageRestaurant.web.sellerInput.SellerHomeController -->  code.component.manageAccount.AccountService
+code.component.manageRestaurant.web.sellerInput.SellerMenuController -->  code.component.manageRestaurant.service.MenuPositionService
+code.component.manageRestaurant.web.sellerInput.SellerRestaurantController -->  code.component.manageRestaurant.service.MenuService
+code.component.manageRestaurant.web.sellerInput.SellerRestaurantController -->  code.component.manageRestaurant.service.RestaurantService
+code.component.manageRestaurant.web.sellerInput.SellerRestaurantsController -->  code.component.manageAccount.AccountService
+code.component.manageRestaurant.web.sellerInput.SellerRestaurantsController -->  code.component.manageRestaurant.manageDelivery.AddressService
+code.component.manageRestaurant.web.sellerInput.SellerRestaurantsController -->  code.component.manageRestaurant.service.RestaurantService
+
+hide methods
+
+@enduml

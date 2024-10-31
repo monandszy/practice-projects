@@ -1,0 +1,7 @@
+{
+  city: 'Gadki',
+  ipAddress: '{{parameters.ip}}',
+  latitude: 52.3094,
+  longitude: 17.0398,
+  postalCode: '62-023',
+}

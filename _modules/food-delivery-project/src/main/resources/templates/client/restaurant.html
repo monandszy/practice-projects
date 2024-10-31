@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Restaurant</title>
+</head>
+<body>
+<div>
+  <h2>Restaurant</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>MenuType</th>
+      <th>Show</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="menu : ${restaurantPage}">
+      <td th:text="${menu.id}"></td>
+      <td th:text="${menu.menuType}"></td>
+      <td>
+        <form action="#" th:action="@{/menu/get/{id}
+        (id=${menu.id})}" method="GET">
+          <button type="submit">+</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Page</h2>
+  <form action="#" th:action="@{/restaurant/get/{id}
+  (id=${restaurantId})}" method="GET">
+    <div>
+      <label>
+        <input type="text" th:name = "pageNumber"
+               placeholder="PageNumber" th:placeholder="${pageNumber}"/>
+      </label>
+    </div>
+    <div>
+      <button type="submit">Set Page</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <a th:href="@{/discover}">Go Back</a>
+</div>
+</body>
+</html>
