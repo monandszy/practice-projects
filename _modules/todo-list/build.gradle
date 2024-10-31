@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'pmd'
+    id 'jacoco'
+}
+
+group = 'code'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.9'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.0'
+
+    implementation group: 'de.elnarion.util', name: 'plantuml-generator-util', version: '2.3.0'
+
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.27'
+}
+
+//jar {
+//    manifest {
+//        attributes 'MainRunner-Class': 'code.Main'
+//    }
+//    from {
+//        configurations.runtimeClasspath.collect {
+//            it.directory ? it : zipTree(it)
+//        }
+//    }
+//}
+
+pmd {
+//    consoleOutput = true
+//    toolVersion = "6.21.0"
+//    rulesMinimumPriority = 5
+    ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "skipped", "failed"
+    }
+    finalizedBy jacocoTestReport
+}
+jacoco {
+    toolVersion = "0.8.7"
+}
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.5
+            }
+        }
+    }
+}
+check.dependsOn jacocoTestCoverageVerification
+
+
+
+
+
+

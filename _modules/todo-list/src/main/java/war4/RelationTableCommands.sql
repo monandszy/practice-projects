@@ -1,0 +1,36 @@
+ CREATE TABLE ADDRESSES(
+ 	ID INT NOT NULL,
+ 	CITY VARCHAR(32) NOT NULL,
+ 	STREET VARCHAR(64) NOT NULL,
+ 	PRIMARY KEY(ID)
+ );
+
+ CREATE TABLE EMPLOYEES(
+ 	ID INT NOT NULL,
+ 	NAME VARCHAR(20),
+ 	SURNAME VARCHAR(20) NOT NULL,
+ 	AGE INT,
+ 	ADDRESS_ID INT NOT NULL,
+ 	PRIMARY KEY(ID),
+ 	CONSTRAINT fk_address
+ 		FOREIGN KEY (ADDRESS_ID)
+ 			REFERENCES ADDRESSES (ID)
+ );
+
+ INSERT INTO ADDRESSES (ID, CITY, STREET) VALUES (1, 'Warszawa', 'Marszałkowska');
+ INSERT INTO ADDRESSES (ID, CITY, STREET) VALUES (2, 'Gdańsk', 'Oliwska');
+ INSERT INTO ADDRESSES (ID, CITY, STREET) VALUES (3, 'Szczecin', 'Biała');
+
+ INSERT INTO EMPLOYEES (ID, NAME, SURNAME, AGE, ADDRESS_ID)
+ 	VALUES (4, 'Smerfowin', 'Meowin', 2, 2); -- Key must exist
+	 -- foreign key constraints, can't delete in use
+
+SELECT EMP.ID, NAME, SURNAME, AGE, ADDRESS_ID, CITY, STREET
+FROM EMPLOYEES AS EMP
+	INNER JOIN ADDRESSES AS ADR ON EMP.ADDRESS_ID = ADR.ID; --  INNER default
+--  JOIN
+--  FULL JOIN
+--  LEFT JOIN - do wszystkich z lewej doklej
+--  RIGHT JOIN - do wszystkich z prawej doklej
+
+ -- usefull if foreign key DROP NOT NULL  fills empty with null

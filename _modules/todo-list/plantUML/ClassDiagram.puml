@@ -1,0 +1,225 @@
+@startuml
+!theme vibrant
+skinparam classAttributeIconSize 0
+left to right direction
+
+
+interface CommandProcessor {
+	{method}  {abstract} +processCommands () : void
+}
+
+
+class CommandProcessorListImpl {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +processCommands () : void
+	{method} +toString () : String
+}
+
+
+class CommandProcessorScannerImpl {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +processCommands () : void
+	{method} +toString () : String
+}
+
+class ToDoRunner {
+	{method}  {static} -getCommandBuilder () : commandBuilder.CommandBuilderImpl
+	{method}  {static} -getDatabaseRunner () : databaseRunner.DatabaseRunnerImpl
+	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
+	{method}  {static} -runListCommandProcessor ( paramList1 : java.util.List ) : void
+	{method}  {static} -runScannerCommandProcessor () : void
+}
+
+
+interface commandBuilder.ArgumentAdjuster {
+	{method}  {abstract} +prepareArguments ( paramMap1 : java.util.Map , paramCommand$Type2 : model.Command$Type ) : java.util.List
+}
+
+
+class commandBuilder.ArgumentAdjusterImpl {
+	{method}  {static} -adjustOrder ( paramMap1 : java.util.Map , paramList2 : java.util.List , paramList3 : java.util.List ) : void
+	{method}  {static} -getArgumentOrder ( paramCommand$Type1 : model.Command$Type ) : java.util.List
+	{method} +prepareArguments ( paramMap1 : java.util.Map , paramCommand$Type2 : model.Command$Type ) : java.util.List
+}
+
+
+interface commandBuilder.ArgumentExtractor {
+	{method}  {abstract} +getArguments ( paramList1 : java.util.List ) : java.util.Map
+}
+
+
+class commandBuilder.ArgumentExtractorImpl {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +getArguments ( paramList1 : java.util.List ) : java.util.Map
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+interface commandBuilder.CommandBuilder {
+	{method}  {abstract} +buildCommand ( paramString1 : String ) : java.util.Optional
+}
+
+
+class commandBuilder.CommandBuilderImpl {
+	{method} +buildCommand ( paramString1 : String ) : java.util.Optional
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+interface commandBuilder.CommandTypeFactory {
+	{method}  {abstract} +getCommandType ( paramList1 : java.util.List ) : model.Command$Type
+	{method}  {abstract} +removeStringCommandTypeFromSplit ( paramList1 : java.util.List ) : void
+}
+
+
+class commandBuilder.CommandTypeFactoryImpl {
+	{method} +getCommandType ( paramList1 : java.util.List ) : model.Command$Type
+	{method} +removeStringCommandTypeFromSplit ( paramList1 : java.util.List ) : void
+}
+
+
+interface commandBuilder.QueryAdjuster {
+	{method}  {abstract} +prepareQuery ( paramString1 : String , paramMap2 : java.util.Map , paramCommand$Type3 : model.Command$Type ) : String
+}
+
+
+class commandBuilder.QueryAdjusterImpl {
+	{method} -prepareCOMPLETED ( paramString1 : String ) : String
+	{method} +prepareQuery ( paramString1 : String , paramMap2 : java.util.Map , paramCommand$Type3 : model.Command$Type ) : String
+	{method} -prepareREAD_ALL ( paramString1 : String , paramMap2 : java.util.Map ) : String
+}
+
+
+interface commandBuilder.QueryFactory {
+	{method}  {abstract} +getQuery ( paramCommand$Type1 : model.Command$Type ) : String
+}
+
+
+class commandBuilder.QueryFactoryImpl {
+	{method} +getQuery ( paramCommand$Type1 : model.Command$Type ) : String
+}
+
+
+interface commandBuilder.Splitter {
+	{method}  {abstract} +split ( paramString1 : String , paramString2 : String ) : java.util.List
+}
+
+
+class commandBuilder.SplitterImpl {
+	{method} +split ( paramString1 : String , paramString2 : String ) : java.util.List
+}
+
+
+interface commandBuilder.TableData {
+}
+
+
+interface databaseRunner.DatabaseRunner {
+	{method}  {abstract} +run ( paramCommand1 : model.Command ) : void
+}
+
+
+class databaseRunner.DatabaseRunnerImpl {
+	{method} +createTable ( paramString1 : String , paramString2 : String ) : void
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method}  {static} -logMessage ( paramString1 : String ) : void
+	{method}  {static} -prepareQuery ( paramList1 : java.util.List , paramPreparedStatement2 : java.sql.PreparedStatement ) : void
+	{method} +run ( paramCommand1 : model.Command ) : void
+	{method} -runPreparedUpdateQuery ( paramString1 : String ) : void
+	{method} +runQuery ( paramCommand1 : model.Command ) : java.util.List
+	{method} +runUpdate ( paramCommand1 : model.Command ) : void
+	{method} +toString () : String
+}
+
+
+class exceptions.UnknownParameterException {
+}
+
+
+class model.Arguments {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+enum model.Arguments$Column {
+	{field} +DATA
+	{field} +DEADLINE
+	{field} +DESCRIPTION
+	{field} +NAME
+	{field} +PRIORITY
+	{field} +SORT
+	{field} +STATUS
+}
+
+
+enum model.Arguments$SortDir {
+	{field} +ASC
+	{field} +DESC
+}
+
+
+enum model.Arguments$Status {
+	{field} +COMPLETED
+	{field} +TODO
+}
+
+
+class model.Command {
+	{method} +equals ( paramObject1 : Object ) : boolean
+	{method} +hashCode () : int
+	{method} +toString () : String
+}
+
+
+enum model.Command$Type {
+	{field} +COMPLETED
+	{field} +CREATE
+	{field} +DELETE
+	{field} +DELETE_ALL
+	{field} +READ
+	{field} +READ_ALL
+	{field} +READ_GROUPED
+	{field} +UPDATE
+}
+
+
+
+
+CommandProcessorListImpl *--  commandBuilder.CommandBuilder : commandBuilder
+CommandProcessorListImpl *--  databaseRunner.DatabaseRunner : databaseRunner
+CommandProcessorListImpl ..u|>  CommandProcessor
+CommandProcessorScannerImpl *--  commandBuilder.CommandBuilder : commandBuilder
+CommandProcessorScannerImpl *--  databaseRunner.DatabaseRunner : databaseRunner
+CommandProcessorScannerImpl ..u|>  CommandProcessor
+commandBuilder.ArgumentAdjusterImpl ..u|>  commandBuilder.ArgumentAdjuster
+commandBuilder.ArgumentExtractorImpl *--  commandBuilder.Splitter : splitter
+commandBuilder.ArgumentExtractorImpl ..u|>  commandBuilder.ArgumentExtractor
+commandBuilder.CommandBuilderImpl *--  commandBuilder.ArgumentAdjuster : argumentAdjuster
+commandBuilder.CommandBuilderImpl *--  commandBuilder.ArgumentExtractor : argumentExtractor
+commandBuilder.CommandBuilderImpl *--  commandBuilder.CommandTypeFactory : commandTypeFactory
+commandBuilder.CommandBuilderImpl *--  commandBuilder.QueryAdjuster : queryAdjuster
+commandBuilder.CommandBuilderImpl *--  commandBuilder.QueryFactory : queryFactory
+commandBuilder.CommandBuilderImpl *--  commandBuilder.Splitter : splitter
+commandBuilder.CommandBuilderImpl ..u|>  commandBuilder.CommandBuilder
+commandBuilder.CommandTypeFactoryImpl ..u|>  commandBuilder.CommandTypeFactory
+commandBuilder.QueryAdjusterImpl ..u|>  commandBuilder.QueryAdjuster
+commandBuilder.QueryFactoryImpl ..u|>  commandBuilder.QueryFactory
+commandBuilder.SplitterImpl ..u|>  commandBuilder.Splitter
+commandBuilder.TableData "1" o-- "0..*"  model.Command$Type : ARGUMENT_ORDER
+commandBuilder.TableData "1" o-- "0..*"  model.Command$Type : QUERIES
+databaseRunner.DatabaseRunnerImpl ..u|>  databaseRunner.DatabaseRunner
+model.Arguments *--  model.Arguments$SortDir : sort
+model.Arguments *--  model.Arguments$Status : status
+model.Command *--  model.Command$Type : type
+
+hide methods
+
+@enduml
