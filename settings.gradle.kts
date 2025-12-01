@@ -1,15 +1,21 @@
 plugins {
-  // Apply the foojay-resolver plugin to allow automatic download of JDKs
   id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
 rootProject.name = "practice-projects"
 
-// Loop through all subdirectories in the modules directory
-val modulesDir = file("_modules")
-if (modulesDir.exists() && modulesDir.isDirectory) {
-  modulesDir.listFiles()?.filter { it.isDirectory }?.forEach { moduleDir ->
-    include(":${moduleDir.name}")
-    project(":${moduleDir.name}").projectDir = moduleDir
+fun includeModules(dir: File) {
+  if (dir.exists() && dir.isDirectory) {
+    dir.listFiles()?.filter { it.isDirectory }?.forEach { subDir ->
+      if (subDir.name.startsWith("_")) {
+        includeModules(subDir)
+      } else {
+        include(":${subDir.name}") // Include other directories directly
+        project(":${subDir.name}").projectDir = subDir
+      }
+    }
   }
 }
+
+val modulesDir = file("_modules")
+includeModules(modulesDir)

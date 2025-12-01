@@ -24,14 +24,3 @@ hs_err_pid*
 replay_pid*
 
 /.idea/
-/docker/caddy/config/
-/docker/caddy/data/
-/docker/observability/grafana/
-/docker/observability/loki/
-/docker/observability/prometheus/
-/docker/observability/tempo/
-/docker/postgres/data/
-/docker/compose-data.yml
-/docker/compose-networking.yml
-/docker/compose-observability.yml
-/_modules/*

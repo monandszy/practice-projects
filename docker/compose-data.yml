@@ -1,0 +1,17 @@
+networks:
+  default:
+    driver: bridge
+    name: data
+services:
+  postgres:
+    image: postgres:16.3
+    container_name: data-postgres
+    hostname: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
