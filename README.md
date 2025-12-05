@@ -10,8 +10,8 @@ This repository contains multiple of my Java practice projects.
 
 - food-delivery-project: Larger Spring web application with REST API, Thymeleaf views, Spring Security, Swagger, Testcontainers-based tests, and Docker support. Contains a small REST API, role-based features, and instructions about running on `localhost:8087/code`. Default admin credentials: `admin` / `admin`.
 
-- mortgage-calculator: Java 17 practice project that computes mortgage schedules (constant and decreasing rates), supports overpayments (reduce rate/duration), and includes JUnit 5 tests validating rate/residual logic. See `/_modules/mortgage-calculator/Readme.md` for details and run instructions.
+- mortgage-calculator: Java 17 practice project that computes mortgage schedules (constant and decreasing rates), supports overpayments (reduce rate/duration), and includes JUnit 5 tests validating rate/residual logic.
 
-- todo-list: Command-driven ToDo CLI that executes semicolon-separated commands against PostgreSQL using plain JDBC. Includes a simple command builder, query factory and a `DatabaseRunnerImpl` for executing parameterized queries. See `/_modules/todo-list/Readme.md` for examples and DB setup notes.
+- todo-list: Command-driven ToDo CLI that executes semicolon-separated commands against PostgreSQL using plain JDBC. Includes a simple command builder, query factory and a `DatabaseRunnerImpl` for executing parameterized queries.
 
 
